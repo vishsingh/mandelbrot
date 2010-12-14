@@ -31,8 +31,8 @@
   (make-frame 768 512
 	      (fn [#^Graphics g]
 		(doseq [x (range 768) y (range 512)]
-		  (let [num-iter (num-mandelbrot-iterations (complex (+ (* (/ x 768.0) 3.0) -2.0)
-								     (+ (* (/ y 512.0) 2.0) -1.0))
+		  (let [num-iter (num-mandelbrot-iterations (complex (+ (/ x 256.0) -2.0)
+								     (+ (/ y 256.0) -1.0))
 							    30)]
 		    (.setColor g (if (nil? num-iter)
 				   (Color. 0 0 0)
