@@ -32,7 +32,7 @@
 	      (fn [#^Graphics g]
 		(let [dot (fn [x y c]
 			    (.setColor g c)
-			    (.drawLine g x y x y))]
+			    (.fillRect g x y 1 1))]
 		  (doseq [x (range 768) y (range 512)]
 		    (let [max-iter 30
 			  inv-max-iter (int (/ 255.0 max-iter))
