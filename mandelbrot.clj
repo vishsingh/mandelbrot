@@ -34,7 +34,5 @@
 		  (let [num-iter (num-mandelbrot-iterations (complex (+ (/ x 256.0) -2.0)
 								     (+ (/ y 256.0) -1.0))
 							    30)]
-		    (.setColor g (if (nil? num-iter)
-				   (Color. 0 0 0)
-				   (Color. (* num-iter 8) 0 0)))
+		    (.setColor g (Color. (if (nil? num-iter) 0 (* num-iter 8)) 0 0))
 		    (.fillRect g x y 1 1))))))
