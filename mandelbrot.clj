@@ -30,15 +30,13 @@
 (defn mandelbrot []
   (make-frame 768 512
 	      (fn [#^Graphics g]
-		(let [dot (fn [x y c]
-			    (.setColor g c)
-			    (.fillRect g x y 1 1))]
-		  (doseq [x (range 768) y (range 512)]
-		    (let [max-iter 30
-			  inv-max-iter (int (/ 255.0 max-iter))
-			  num-iter (num-mandelbrot-iterations (complex (+ (* (/ x 768.0) 3.0) -2.0)
-								       (+ (* (/ y 512.0) 2.0) -1.0))
-							      max-iter)]
-		      (dot x y (if (nil? num-iter)
-				 (Color. 0 0 0)
-				 (Color. (* num-iter inv-max-iter) 0 0)))))))))
+		(doseq [x (range 768) y (range 512)]
+		  (let [max-iter 30
+			inv-max-iter (int (/ 255.0 max-iter))
+			num-iter (num-mandelbrot-iterations (complex (+ (* (/ x 768.0) 3.0) -2.0)
+								     (+ (* (/ y 512.0) 2.0) -1.0))
+							    max-iter)]
+		    (.setColor g (if (nil? num-iter)
+				   (Color. 0 0 0)
+				   (Color. (* num-iter inv-max-iter) 0 0)))
+		    (.fillRect g x y 1 1))))))
