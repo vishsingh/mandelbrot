@@ -21,11 +21,10 @@
 ; or max-iter+1 if it doesn't within max-iter iterations.
 (defn num-mandelbrot-iterations [#^complex c max-iter]
   (loop [z (complex 0.0 0.0) num-iter 0]
-    (if (> num-iter max-iter)
+    (if (or (> num-iter max-iter)
+	    (> (abs z) 2.0))
       num-iter
-      (if (> (abs z) 2.0)
-	num-iter
-	(recur (+ (* z z) c) (inc num-iter))))))
+      (recur (+ (* z z) c) (inc num-iter)))))
 
 (defn mandelbrot []
   (make-frame 768 512
