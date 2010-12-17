@@ -20,11 +20,9 @@
 ; Returns the number of iterations for |z| to exceed 2
 ; or max-iter+1 if it doesn't within max-iter iterations.
 (defn num-mandelbrot-iterations [#^complex c max-iter]
-  (loop [z (complex 0.0 0.0) num-iter 0]
-    (if (or (> num-iter max-iter)
-	    (> (abs z) 2.0))
-      num-iter
-      (recur (+ (* z z) c) (inc num-iter)))))
+  (count (take-while #(<= (abs %) 2.0)
+		     (take (inc max-iter)
+			   (iterate #(+ (* % %) c) (complex 0.0 0.0))))))
 
 (defn mandelbrot []
   (make-frame 768 512
