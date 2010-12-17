@@ -18,11 +18,11 @@
     .show))
 
 ; Returns the number of iterations for |z| to exceed 2
-; or nil if it never does.
+; or max-iter+1 if it doesn't within max-iter iterations.
 (defn num-mandelbrot-iterations [#^complex c max-iter]
   (loop [z (complex 0.0 0.0) num-iter 0]
     (if (> num-iter max-iter)
-      nil
+      num-iter
       (if (> (abs z) 2.0)
 	num-iter
 	(recur (+ (* z z) c) (inc num-iter))))))
@@ -34,5 +34,5 @@
 		  (let [num-iter (num-mandelbrot-iterations (complex (+ (/ x 256.0) -2.0)
 								     (+ (/ y 256.0) -1.0))
 							    30)]
-		    (.setColor g (Color. (if (nil? num-iter) 0 (* num-iter 8)) 0 0))
+		    (.setColor g (Color. (if (> num-iter 30) 0 (* num-iter 8)) 0 0))
 		    (.fillRect g x y 1 1))))))
